@@ -1,6 +1,6 @@
-import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Stack} from 'react-bootstrap';
+import { Button, Stack } from 'react-bootstrap';
+import axios from 'axios';
 
 import { useState } from 'react'
 import Arweave from 'arweave'
@@ -14,40 +14,17 @@ function App() {
   const [state, setState] = useState('')
   const [transactionId, setTransactionId] = useState('')
 
-  async function createTransaction() {
-    if (!state) return
-    try {
-      const formData = state
-      setState('')
-      /* creates and sends transaction to Arweave */
-      let transaction = await arweave.createTransaction({ data: formData })
-      await arweave.transactions.sign(transaction)
-      let uploader = await arweave.transactions.getUploader(transaction)
+  async function streamData() {
 
-      /* upload indicator */
-      while (!uploader.isComplete) {
-        await uploader.uploadChunk()
-        console.log(
-          `${uploader.pctComplete}% complete, ${uploader.uploadedChunks}/${uploader.totalChunks}`
-        )
-      }
-      setTransactionId(transaction.id)
-    } catch (err) {
-      console.log('error: ', err)
-    }
-  }
-
-  async function readFromArweave() {
-    /* read Arweave data using any trsnsaction ID */
-    arweave.transactions
-      .getData(transactionId, {
-        decode: true,
-        string: true,
+    axios.get(`https://livepeer.com/api/stream/979e07b7-9928-4e4f-abdf-f141b184c5b5`,
+      { headers: { authorization: 'Bearer a0e86a1b-b8f2-4134-bbd4-67cb0155159d' } }).then(response => {
+        // If request is good...
+        console.log(response.data);
       })
-      .then((data) => {
-        console.log('data: ', data)
-      })
-  }
+      .catch((error) => {
+        console.log('error ' + error);
+      });
+    } 
 
   return (
     <div>
@@ -56,29 +33,12 @@ function App() {
         <Button>
           Connect to Wallet
         </Button>
-        <Button onClick={createTransaction}>
-          Create Transaction
+        <Button onClick={streamData}>
+          Get Livestream
         </Button>
-        <Button onClick={readFromArweave}>
-          Read Transaction
-        </Button>
-        <input
-          onChange={(e) => setState(e.target.value)}
-          placeholder="text"
-          value={state}
-        />
       </Stack>
     </div>
   );
-}
-
-const input = {
-  backgroundColor: '#ddd',
-  outline: 'none',
-  border: 'none',
-  width: '200px',
-  fontSize: '16px',
-  padding: '10px',
 }
 
 export default App;
