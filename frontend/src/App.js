@@ -17,7 +17,7 @@ function App() {
   async function streamData() {
 
     axios.get(`https://livepeer.com/api/stream/979e07b7-9928-4e4f-abdf-f141b184c5b5`,
-      { headers: { authorization: 'Bearer 7205352314304364aa69a04678d4b921' } }).then(response => {
+      { headers: { authorization: 'Bearer a0e86a1b-b8f2-4134-bbd4-67cb0155159d' } }).then(response => {
         // If request is good...
         console.log(response.data);
       })
