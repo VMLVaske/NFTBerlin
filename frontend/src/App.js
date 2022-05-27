@@ -5,8 +5,10 @@ import axios from 'axios';
 import { useState } from 'react'
 
 function App() {
-  const [state, setState] = useState('')
-  const [transactionId, setTransactionId] = useState('')
+  const [streamID, setStreamID] = useState('') 
+  const [streamArrayLength, setStreamArrayLength] = useState('') 
+  const [sessionID, setSessionID] = useState('') 
+  const [downloadLink, setDownloadLink] = useState('') 
 
   async function getStream() {
 
@@ -14,6 +16,7 @@ function App() {
       { headers: { authorization: 'Bearer a0e86a1b-b8f2-4134-bbd4-67cb0155159d' } }).then(response => {
         // If request is good...
         console.log(response.data);
+        setStreamID(response.data.id)
       })
       .catch((error) => {
         console.log('error ' + error);
@@ -26,18 +29,21 @@ function App() {
       { headers: { authorization: 'Bearer a0e86a1b-b8f2-4134-bbd4-67cb0155159d' } }).then(response => {
         // If request is good...
         console.log(response.data);
+        setStreamArrayLength(response.data.length)
+        setSessionID(response.data[0].id)
       })
       .catch((error) => {
         console.log('error ' + error);
       });
   }
 
-  async function getSession() {
-
-    axios.get(`https://livepeer.com/api/stream/979e07b7-9928-4e4f-abdf-f141b184c5b5/sessions`,
+  async function getDownloadLink() {
+    
+    axios.get(`https://livepeer.com/api/stream/979e07b7-9928-4e4f-abdf-f141b184c5b5/sessions?record=1`,
       { headers: { authorization: 'Bearer a0e86a1b-b8f2-4134-bbd4-67cb0155159d' } }).then(response => {
         // If request is good...
         console.log(response.data[0]);
+        setDownloadLink(response.data[0].mp4Url)
       })
       .catch((error) => {
         console.log('error ' + error);
@@ -46,7 +52,7 @@ function App() {
 
   return (
     <div>
-      <h1> Dinge. </h1>
+      <h1> Ticket To Web3 Onboarding Portal </h1>
       <Stack gap={4} className="col-md-5 mx-auto">
         <Button>
           Connect to Wallet
@@ -54,13 +60,16 @@ function App() {
         <Button onClick={getStream}>
           Get Stream
         </Button>
+        <p>Stream ID: {streamID}</p>
         <Button onClick={getSessionID}>
           Get SessionID
         </Button>
-
-        <Button onClick={getSession}>
-          Get Stream
+        <p>Array Length: {streamArrayLength}</p>
+        <p>Get Session ID: {sessionID}</p>
+        <Button onClick={getDownloadLink}>
+          Get Download Link
         </Button>
+        <p>Session ID Data: <a href={downloadLink}>{downloadLink}</a></p>
       </Stack>
     </div>
   );
