@@ -11,10 +11,11 @@ import React, {
   useRef
 } from 'react'
 import { connect, keyStores, Near, WalletConnection } from 'near-api-js'
+import logo from './logo.png'
+import nearLogo from './near.png'
 
 import Arweave from 'arweave'
 import { getConfig } from './config'
-import logo from './logo.png'
 
 export const WalletContext = createContext('development')
 /* connect to an Arweave node or specify a gateway  */
@@ -208,23 +209,39 @@ function App () {
           <img height='40px' width='40px' src={logo} alt='logo' />
           <h1 class='font-monospace'> Ticket To Web3 </h1>
           {accountId && (
-            <Button
+            <button
+              class='h-1 bg-light rounded-3 h-75 p-1 d-flex align-items-center'
               onClick={() => {
                 wallet?.signOut()
                 setConnectWallet(false)
               }}
             >
-              sign out
-            </Button>
+              <img
+                class='m-1'
+                height='20px'
+                width='20px'
+                src={nearLogo}
+                alt='near-logo'
+              />
+              <p class='my-auto'>Sign out</p>
+            </button>
           )}
           {!accountId && (
-            <Button
+            <button
+              class='h-1 bg-light rounded-3 h-75 p-1 d-flex align-items-center'
               onClick={() => {
                 setConnectWallet(true)
               }}
             >
-              connect wallet
-            </Button>
+              <img
+                class='m-1'
+                height='20px'
+                width='20px'
+                src={nearLogo}
+                alt='near-logo'
+              />
+              <p class='my-auto'>Connect Wallet</p>
+            </button>
           )}
         </div>
         <Stack
