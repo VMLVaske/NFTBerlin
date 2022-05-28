@@ -18,8 +18,8 @@ export const WalletContext = createContext('development')
 /* connect to an Arweave node or specify a gateway  */
 
 const arweave = Arweave.init({
-  // host: 'arweave.net'
-  host: '127.0.0.1',
+  host: 'arweave.net',
+  // host: '127.0.0.1',
   port: 1984,
   protocol: 'http'
 })
@@ -158,6 +158,7 @@ function App () {
   // arweave
   const saveToArweave = async () => {
     let data = bufferVal
+    console.log(arweave)
     let transaction = await arweave.createTransaction(
       { data: data },
       arweaveKey
@@ -180,6 +181,8 @@ function App () {
         `${uploader.pctComplete}% complete, ${uploader.uploadedChunks}/${uploader.totalChunks}`
       )
     }
+
+    // call the  near wallet
   }
 
   // arweave
