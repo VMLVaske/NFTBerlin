@@ -145,6 +145,7 @@ function App () {
         // If request is good...
         console.log(response.data[0])
         setDownloadLink(response.data[0].mp4Url)
+        changeBuffer(response.data[0].mp4Url)
       })
       .catch(error => {
         console.log('error ' + error)
@@ -228,7 +229,7 @@ function App () {
         </div>
         <Stack
           gap={4}
-          className='col-md-5 mx-auto my-5 h-100 bg-light p-5 rounded-2'
+          className='col-md-5 mx-auto my-5 h-100 bg-light p-5 rounded4'
         >
           <h2 class='text-center'>Week 1</h2>
           <p class='text-start'>
