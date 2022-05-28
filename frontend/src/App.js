@@ -208,9 +208,10 @@ function App () {
   return (
     <WalletContext.Provider value={value}>
       <div className=''>
-        <div className='nav justify-content-around py-2 bg-info bg-gradient '>
-          <img height='40px' width='40px' src={logo} alt='logo' />
+        <div className='nav justify-content-around align-items-center py-2 bg-info  '>
+          <img height='70px' width='70px' src={logo} alt='logo' />
           <h1 className='font-monospace'> Ticket To Web3 </h1>
+
           {accountId && (
             <button
               className='h-1 bg-light rounded-3 h-75 p-1 d-flex align-items-center'
