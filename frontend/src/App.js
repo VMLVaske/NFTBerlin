@@ -3,17 +3,14 @@ import { Button, Stack } from 'react-bootstrap'
 import axios from 'axios'
 import React, {
   createContext,
-  Dispatch,
-  SetStateAction,
   useContext,
   useEffect,
   useState,
   useRef
 } from 'react'
-import { connect, keyStores, Near, WalletConnection } from 'near-api-js'
+import { connect, keyStores, WalletConnection } from 'near-api-js'
 import logo from './logo.png'
 import nearLogo from './near.png'
-
 import Arweave from 'arweave'
 import { getConfig } from './config'
 
@@ -42,6 +39,7 @@ function App () {
   //references
   const idRef = useRef()
 
+  // arweave
   useEffect(() => {
     arweave.wallets.generate().then(key => {
       console.log(key)
@@ -53,12 +51,14 @@ function App () {
     })
   }, [])
 
+  // near
   console.log(context)
   if (context === undefined) {
     throw new Error('useWallet must be used within a WalletProvider')
   }
   // eslint-disable-next-line react-hooks/exhaustive-deps
 
+  //near
   useEffect(() => {
     const fetchData = async () => {
       const response = await connect({
@@ -72,6 +72,7 @@ function App () {
   }, [connectWallet])
 
   const myFunction = async () => {
+    console.log()
     if (wallet && !wallet?.isSignedIn()) {
       return wallet?.requestSignIn()
     }
@@ -153,6 +154,7 @@ function App () {
       })
   }
 
+  // arweave
   const saveToArweave = async () => {
     let data = bufferVal
     let transaction = await arweave.createTransaction(
@@ -179,6 +181,7 @@ function App () {
     }
   }
 
+  // arweave
   const getData = async () => {
     arweave.transactions.getStatus(idRef.current.value).then(res => {
       console.log(res)
@@ -205,42 +208,42 @@ function App () {
   return (
     <WalletContext.Provider value={value}>
       <div className=''>
-        <div class='nav justify-content-around py-2 bg-info bg-gradient '>
+        <div className='nav justify-content-around py-2 bg-info bg-gradient '>
           <img height='40px' width='40px' src={logo} alt='logo' />
-          <h1 class='font-monospace'> Ticket To Web3 </h1>
+          <h1 className='font-monospace'> Ticket To Web3 </h1>
           {accountId && (
             <button
-              class='h-1 bg-light rounded-3 h-75 p-1 d-flex align-items-center'
+              className='h-1 bg-light rounded-3 h-75 p-1 d-flex align-items-center'
               onClick={() => {
                 wallet?.signOut()
                 setConnectWallet(false)
               }}
             >
               <img
-                class='m-1'
+                className='m-1'
                 height='20px'
                 width='20px'
                 src={nearLogo}
                 alt='near-logo'
               />
-              <p class='my-auto'>Sign out</p>
+              <p className='my-auto'>Sign out</p>
             </button>
           )}
           {!accountId && (
             <button
-              class='h-1 bg-light rounded-3 h-75 p-1 d-flex align-items-center'
+              className='h-1 bg-light rounded-3 h-75 p-1 d-flex align-items-center'
               onClick={() => {
                 setConnectWallet(true)
               }}
             >
               <img
-                class='m-1'
+                className='m-1'
                 height='20px'
                 width='20px'
                 src={nearLogo}
                 alt='near-logo'
               />
-              <p class='my-auto'>Connect Wallet</p>
+              <p className='my-auto'>Connect Wallet</p>
             </button>
           )}
         </div>
@@ -248,8 +251,8 @@ function App () {
           gap={4}
           className='col-md-5 mx-auto my-5 h-100 bg-light p-5 rounded4'
         >
-          <h2 class='text-center'>Week 1</h2>
-          <p class='text-start'>
+          <h2 className='text-center'>Week 1</h2>
+          <p className='text-start'>
             Please record your reflection of week one and submit the video.
           </p>
           <Button onClick={getStream}>Get Stream</Button>
