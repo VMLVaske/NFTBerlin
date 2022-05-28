@@ -258,11 +258,11 @@ function App () {
           <p className='text-start'>
             Please record your reflection of week one and submit the video.
           </p>
-          <Button onClick={getStream}>Get Stream</Button>
+          {/* <Button onClick={getStream}>Get Stream</Button>
           <p>Stream ID: {streamID}</p>
           <Button onClick={getSessionID}>Get SessionID</Button>
           <p>Array Length: {streamArrayLength}</p>
-          <p>Get Session ID: {sessionID}</p>
+          <p>Get Session ID: {sessionID}</p> */}
           <Button onClick={getDownloadLink}>Get Download Link</Button>
           <p>
             Session ID Data: <a href={downloadLink}>{downloadLink}</a>

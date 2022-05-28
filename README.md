@@ -2,6 +2,16 @@
 
 Bsquare for Builders  is a learn2earn platform to help web2 builders onboard web3.
 
+## Team
+
+Irene, Lilly: Smart Contract
+Valerie: Livepeer, Arweave
+Lena: FE, Near Wallet
+
+## Tech used:
+
+Arweave, Livepeer, NEAR
+
 ## What are we trying to solve?
 
 onboard builders, developers from web2 to web3. From our experience with Coding Bootcamps, Blockchain Onboarding courses we know that many users drop out very quickly. To incentivise them we are looking at what helped us to stay motivated and pull through. The things we came up with, was repetition, study groups through which you learn different perspectives and which will encourage you to go on.
