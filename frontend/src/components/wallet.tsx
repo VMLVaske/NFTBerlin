@@ -14,7 +14,7 @@ import {
 import config from '../config'
 import React from 'react'
 
-const WalletContext = createContext<
+export const WalletContext = createContext<
   | {
       setConnectWallet: Dispatch<SetStateAction<boolean>>
       wallet: WalletConnection
