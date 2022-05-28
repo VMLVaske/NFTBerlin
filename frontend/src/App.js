@@ -72,15 +72,16 @@ function App () {
   }, [connectWallet])
 
   const myFunction = async () => {
-    console.log()
+    console.log(wallet)
     if (wallet && !wallet?.isSignedIn()) {
+      console.log('request login')
       return wallet?.requestSignIn()
     }
   }
 
   useEffect(() => {
     if (!response) return
-    const walletConn = new WalletConnection(response, 'my-app')
+    const walletConn = new WalletConnection(response, 'b-square')
     setWallet(walletConn)
 
     myFunction()
@@ -208,13 +209,14 @@ function App () {
   return (
     <WalletContext.Provider value={value}>
       <div className=''>
-        <div className='nav justify-content-around align-items-center py-2 bg-info  '>
-          <img height='70px' width='70px' src={logo} alt='logo' />
-          <h1 className='font-monospace'> Ticket To Web3 </h1>
-
+        <div className='nav justify-content-between align-items-center py-2 bg-info  '>
+          <div className='d-flex flex-nowrap justify-content-around align-items-center'>
+            <img height='70px' width='70px' src={logo} alt='logo' />
+            <h1 className='font-monospace m-0'> BSquare </h1>
+          </div>
           {accountId && (
             <button
-              className='h-1 bg-light rounded-3 h-75 p-1 d-flex align-items-center'
+              className='h-1 bg-light rounded-3 h-75 p-1 d-flex align-items-center me-4'
               onClick={() => {
                 wallet?.signOut()
                 setConnectWallet(false)
@@ -232,7 +234,7 @@ function App () {
           )}
           {!accountId && (
             <button
-              className='h-1 bg-light rounded-3 h-75 p-1 d-flex align-items-center'
+              className='h-1 bg-light rounded-3 h-75 p-1 d-flex align-items-center  me-4'
               onClick={() => {
                 setConnectWallet(true)
               }}
